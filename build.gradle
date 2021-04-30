@@ -1,0 +1,53 @@
+
+buildscript {
+
+    repositories {
+        jcenter()
+        mavenLocal()
+        mavenCentral()
+        maven { url 'https://plugins.gradle.org/m2' }
+    }
+    dependencies {
+        classpath group: 'com.github.jengelman.gradle.plugins', name: 'shadow', version: '4.0.4'//打包
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+compileJava.options.encoding = 'UTF-8'
+
+group 'net.minecraft'
+version '1.0-SNAPSHOT'
+
+allprojects {
+    repositories {
+        jcenter()
+        mavenLocal()
+        mavenCentral()
+        maven { url 'https://libraries.minecraft.net' }
+        maven { url 'https://enaium.gitee.io/maven' }
+        maven { url 'https://maven.enaium.cn' }
+    }
+}
+
+dependencies {
+    compile group: 'net.minecraft', name: 'minecraft', version: '1.8.9'//游戏本体
+    
+    /**
+     * CF4M框架推荐使用
+     * 文字教程 https://blog.enaium.cn/categories/#cf4m
+     * 视频教程 https://www.bilibili.com/medialist/detail/ml1183524304
+     */
+    implementation('cn.enaium.cf4m:cf4m:1.8.0')
+}
+shadowJar {
+    dependencies {
+        include(dependency('net.minecraft:minecraft'))
+        include(dependency('cn.enaium.cf4m:cf4m'))
+    }
+}
+
+build.dependsOn shadowJar
