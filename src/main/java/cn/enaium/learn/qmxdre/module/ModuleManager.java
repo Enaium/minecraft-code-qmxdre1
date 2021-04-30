@@ -25,4 +25,16 @@ public class ModuleManager {
             }
         }
     }
+
+    public Setting getSettingByName(Module module, String name) {
+        for (Module module1 : modules) {
+            if (!module1.equals(module)) continue;
+            for (Setting setting : module1.getSetting()) {
+                if (setting.getName().equalsIgnoreCase(name)) {
+                    return setting;
+                }
+            }
+        }
+        return null;
+    }
 }

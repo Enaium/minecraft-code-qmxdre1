@@ -1,5 +1,8 @@
 package cn.enaium.learn.qmxdre.module;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Enaium
  */
@@ -8,12 +11,15 @@ public class Module {
     private final Type type;
     private int key;
 
+    private final List<Setting> setting;
+
     private boolean enable;
 
     public Module(String name, Type type, int key) {
         this.name = name;
         this.type = type;
         this.key = key;
+        setting = new ArrayList<>();
         enable = false;
     }
 
@@ -35,6 +41,10 @@ public class Module {
 
     public boolean getEnable() {
         return enable;
+    }
+
+    public List<Setting> getSetting() {
+        return setting;
     }
 
     public void enable() {
