@@ -24,3 +24,7 @@ bin/
 
 run/
 src/main/java/net/minecraft
+src/main/java/net/minecraftforge
+src/main/java/net/optifine
+src/main/resources/assets/minecraft/mcpatcher
+src/main/resources/assets/minecraft/optifine
