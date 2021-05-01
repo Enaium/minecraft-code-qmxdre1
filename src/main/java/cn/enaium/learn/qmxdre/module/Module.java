@@ -1,5 +1,7 @@
 package cn.enaium.learn.qmxdre.module;
 
+import cn.enaium.learn.qmxdre.QMXDRE;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,10 +59,10 @@ public class Module {
     }
 
     protected void onEnable() {
-
+        QMXDRE.INSTANCE.event.register(this);
     }
 
     protected void onDisable() {
-
+        QMXDRE.INSTANCE.event.unregister(this);
     }
 }

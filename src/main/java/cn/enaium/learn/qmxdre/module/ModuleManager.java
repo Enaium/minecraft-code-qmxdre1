@@ -1,6 +1,10 @@
 package cn.enaium.learn.qmxdre.module;
 
+import cn.enaium.learn.qmxdre.QMXDRE;
+import cn.enaium.learn.qmxdre.event.Events;
+import cn.enaium.learn.qmxdre.event.Events.KeyboardEvent;
 import cn.enaium.learn.qmxdre.module.modules.movement.Sprint;
+import com.google.common.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
@@ -12,15 +16,17 @@ public class ModuleManager {
 
     public ModuleManager() {
         modules = new ArrayList<>();
+        QMXDRE.INSTANCE.event.register(this);
     }
 
     public void load() {
         modules.add(new Sprint());
     }
 
-    public void onKey(int key) {
+    @Subscribe
+    public void onKey(KeyboardEvent event) {
         for (Module module : modules) {
-            if (module.getKey() == key) {
+            if (module.getKey() == event.getKey()) {
                 module.enable();
             }
         }
