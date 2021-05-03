@@ -1,5 +1,6 @@
 package cn.enaium.learn.qmxdre;
 
+import cn.enaium.learn.qmxdre.command.CommandManager;
 import cn.enaium.learn.qmxdre.module.ModuleManager;
 import com.google.common.eventbus.EventBus;
 import org.lwjgl.opengl.Display;
@@ -15,14 +16,19 @@ public enum QMXDRE {
 
     public static final String VERSION = "RE1";
 
-    public ModuleManager module;
     public EventBus event;
+    public ModuleManager module;
+    public CommandManager command;
+
+
 
     public void run() {
         event = new EventBus();
         module = new ModuleManager();
+        command = new CommandManager();
         Display.setTitle(NAME + " | " + VERSION);
         module.load();
+        command.load();
     }
 
     public void stop() {

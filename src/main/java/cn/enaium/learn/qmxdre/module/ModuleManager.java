@@ -32,6 +32,15 @@ public class ModuleManager {
         }
     }
 
+    public Module getModuleByName(String name) {
+        for (Module module : modules) {
+            if (module.getName().equalsIgnoreCase(name)) {
+                return module;
+            }
+        }
+        return null;
+    }
+
     public Setting getSettingByName(Module module, String name) {
         for (Module module1 : modules) {
             if (!module1.equals(module)) continue;
