@@ -52,4 +52,8 @@ public class ModuleManager {
         }
         return null;
     }
+
+    public ArrayList<Module> getModules() {
+        return modules;
+    }
 }
