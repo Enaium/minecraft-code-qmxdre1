@@ -4,9 +4,12 @@ import cn.enaium.learn.qmxdre.QMXDRE;
 import cn.enaium.learn.qmxdre.event.Events;
 import cn.enaium.learn.qmxdre.event.Events.KeyboardEvent;
 import cn.enaium.learn.qmxdre.module.modules.movement.Sprint;
+import cn.enaium.learn.qmxdre.module.modules.render.FullBright;
+import cn.enaium.learn.qmxdre.module.modules.render.HUD;
 import com.google.common.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * @author Enaium
@@ -21,6 +24,8 @@ public class ModuleManager {
 
     public void load() {
         modules.add(new Sprint());
+        modules.add(new FullBright());
+        modules.add(new HUD());
     }
 
     @Subscribe
@@ -39,6 +44,10 @@ public class ModuleManager {
             }
         }
         return null;
+    }
+
+    public ArrayList<Module> getModuleByType(Type type) {
+        return getModules().stream().filter(it -> it.getType().equals(type)).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public Setting getSettingByName(Module module, String name) {

@@ -19,4 +19,8 @@ public class Events {
     public static class UpdateEvent {
 
     }
+
+    public static class Render2DEvent {
+
+    }
 }
