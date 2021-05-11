@@ -83,6 +83,20 @@ public class HUD extends Module {
         }
     }
 
+    @Subscribe
+    public void enableList(Render2DEvent event) {
+        ScaledResolution sr = new ScaledResolution(mc);
+        int[] y = new int[]{5};
+        QMXDRE.INSTANCE.module.getModules().stream().
+                filter(Module::getEnable).
+                sorted((o1, o2) -> mc.fontRendererObj.getStringWidth(o2.getName())
+                        - mc.fontRendererObj.getStringWidth(o1.getName())).
+                forEach(it -> {
+                    mc.fontRendererObj.drawString(it.getName(), sr.getScaledWidth() - mc.fontRendererObj.getStringWidth(it.getName()), y[0], 0xFFFFFF);
+                    y[0] += mc.fontRendererObj.FONT_HEIGHT;
+                });
+    }
+
     private void up() {
         if (!sub) {
             if (selectTab > 0) {
