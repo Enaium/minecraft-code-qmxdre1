@@ -4,6 +4,7 @@ import cn.enaium.learn.qmxdre.QMXDRE;
 import cn.enaium.learn.qmxdre.event.Events;
 import cn.enaium.learn.qmxdre.event.Events.KeyboardEvent;
 import cn.enaium.learn.qmxdre.event.Events.Render2DEvent;
+import cn.enaium.learn.qmxdre.event.Events.UpdateEvent;
 import cn.enaium.learn.qmxdre.module.Module;
 import cn.enaium.learn.qmxdre.module.Type;
 import com.google.common.eventbus.Subscribe;
@@ -28,6 +29,7 @@ public class HUD extends Module {
     private final ArrayList<Tab> tabs;
 
     private final Minecraft mc = Minecraft.getMinecraft();
+    private final ScaledResolution sr = new ScaledResolution(mc);
 
     private int selectTab = 0;
 
@@ -85,7 +87,6 @@ public class HUD extends Module {
 
     @Subscribe
     public void enableList(Render2DEvent event) {
-        ScaledResolution sr = new ScaledResolution(mc);
         int[] y = new int[]{5};
         QMXDRE.INSTANCE.module.getModules().stream().
                 filter(Module::getEnable).
@@ -95,6 +96,44 @@ public class HUD extends Module {
                     mc.fontRendererObj.drawString(it.getName(), sr.getScaledWidth() - mc.fontRendererObj.getStringWidth(it.getName()), y[0], 0xFFFFFF);
                     y[0] += mc.fontRendererObj.FONT_HEIGHT;
                 });
+    }
+
+    @Subscribe
+    public void keyboard(Render2DEvent event) {
+        int x = sr.getScaledWidth() - 100;
+        int y = sr.getScaledHeight() - 100;
+        int i = 25 / 2;
+
+        int downColor = new Color(255, 255, 255, 150).getRGB();
+        int color = new Color(132, 125, 125, 150).getRGB();
+
+        mc.fontRendererObj.drawString("W", x + i, y + i, 0xFFFFFF);
+        if (mc.gameSettings.keyBindForward.isKeyDown()) {
+            drawRect(x, y, 25, 25, downColor);
+        } else {
+            drawRect(x, y, 25, 25, color);
+        }
+
+        mc.fontRendererObj.drawString("A", x - 35 + i, y + 35 + i, 0xFFFFFF);
+        if (mc.gameSettings.keyBindLeft.isKeyDown()) {
+            drawRect(x - 35, y + 35, 25, 25, downColor);
+        } else {
+            drawRect(x - 35, y + 35, 25, 25, color);
+        }
+
+        mc.fontRendererObj.drawString("S", x + i, y + 35 + i, 0xFFFFFF);
+        if (mc.gameSettings.keyBindBack.isKeyDown()) {
+            drawRect(x, y + 35, 25, 25, downColor);
+        } else {
+            drawRect(x, y + 35, 25, 25, color);
+        }
+
+        mc.fontRendererObj.drawString("D", x + 35 + i, y + 35 + i, 0xFFFFFF);
+        if (mc.gameSettings.keyBindRight.isKeyDown()) {
+            drawRect(x + 35, y + 35, 25, 25, downColor);
+        } else {
+            drawRect(x + 35, y + 35, 25, 25, color);
+        }
     }
 
     private void up() {
