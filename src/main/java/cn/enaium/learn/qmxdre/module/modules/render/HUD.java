@@ -1,12 +1,11 @@
 package cn.enaium.learn.qmxdre.module.modules.render;
 
 import cn.enaium.learn.qmxdre.QMXDRE;
-import cn.enaium.learn.qmxdre.event.Events;
 import cn.enaium.learn.qmxdre.event.Events.KeyboardEvent;
 import cn.enaium.learn.qmxdre.event.Events.Render2DEvent;
-import cn.enaium.learn.qmxdre.event.Events.UpdateEvent;
 import cn.enaium.learn.qmxdre.module.Module;
 import cn.enaium.learn.qmxdre.module.Type;
+import cn.enaium.learn.qmxdre.module.settings.EnableSetting;
 import com.google.common.eventbus.Subscribe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -19,7 +18,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author Enaium
@@ -30,6 +28,10 @@ public class HUD extends Module {
 
     private final Minecraft mc = Minecraft.getMinecraft();
     private final ScaledResolution sr = new ScaledResolution(mc);
+
+    EnableSetting tabGUI = new EnableSetting("tabGUI", true);
+    EnableSetting enableList = new EnableSetting("enableList", true);
+    EnableSetting keyboard = new EnableSetting("keyboard", true);
 
     private int selectTab = 0;
 
@@ -51,10 +53,18 @@ public class HUD extends Module {
 
             tabs.add(tab);
         }
+        getSetting().add(tabGUI);
+        getSetting().add(enableList);
+        getSetting().add(keyboard);
     }
 
     @Subscribe
     public void tabGui(Render2DEvent event) {
+
+        if (!tabGUI.getEnable()) {
+            return;
+        }
+
         int typeY = 5;
         int indexY = 0;
         int tabX = 5;
@@ -87,6 +97,11 @@ public class HUD extends Module {
 
     @Subscribe
     public void enableList(Render2DEvent event) {
+
+        if (!enableList.getEnable()) {
+            return;
+        }
+
         int[] y = new int[]{5};
         QMXDRE.INSTANCE.module.getModules().stream().
                 filter(Module::getEnable).
@@ -100,6 +115,11 @@ public class HUD extends Module {
 
     @Subscribe
     public void keyboard(Render2DEvent event) {
+
+        if (!keyboard.getEnable()) {
+            return;
+        }
+
         int x = sr.getScaledWidth() - 100;
         int y = sr.getScaledHeight() - 100;
         int i = 25 / 2;

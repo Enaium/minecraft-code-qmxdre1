@@ -2,6 +2,7 @@ package cn.enaium.learn.qmxdre.command;
 
 import cn.enaium.learn.qmxdre.command.commands.EnableCommand;
 import cn.enaium.learn.qmxdre.command.commands.HelpCommand;
+import cn.enaium.learn.qmxdre.command.commands.SetCommand;
 import cn.enaium.learn.qmxdre.util.ChatUtil;
 
 import java.util.*;
@@ -17,6 +18,7 @@ public class CommandManager {
     public void load() {
         commands.put(new String[]{"h", "help"}, new HelpCommand());
         commands.put(new String[]{"e", "enable"}, new EnableCommand());
+        commands.put(new String[]{"s", "set"}, new SetCommand());
     }
 
     public boolean execCommand(String message) {
