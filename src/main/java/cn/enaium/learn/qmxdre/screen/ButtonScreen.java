@@ -1,6 +1,7 @@
 package cn.enaium.learn.qmxdre.screen;
 
 
+import cn.enaium.learn.qmxdre.util.Render2DUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundHandler;
@@ -95,7 +96,7 @@ public class ButtonScreen extends Gui {
             FontRenderer fontrenderer = mc.fontRendererObj;
             mc.getTextureManager().bindTexture(buttonTextures);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
+            this.hovered = Render2DUtil.isHovered(mouseX, mouseY, xPosition, yPosition, width, height);
             int i = this.getHoverState(this.hovered);
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
@@ -114,14 +115,10 @@ public class ButtonScreen extends Gui {
                 j = 16777120;
             }
 
-            drawRectWH(this.xPosition, this.yPosition, width, height, buttonColor);
+            Render2DUtil.drawRect(this.xPosition, this.yPosition, width, height, buttonColor);
 
             this.drawCenteredString(fontrenderer, this.displayString, this.xPosition + this.width / 2, this.yPosition + (this.height - 8) / 2, j);
         }
-    }
-
-    private void drawRectWH(int x, int y, int width, int height, int color) {
-        Gui.drawRect(x, y, x + width, y + height, color);
     }
 
     /**

@@ -6,9 +6,9 @@ import cn.enaium.learn.qmxdre.event.Events.Render2DEvent;
 import cn.enaium.learn.qmxdre.module.Module;
 import cn.enaium.learn.qmxdre.module.Type;
 import cn.enaium.learn.qmxdre.module.settings.EnableSetting;
+import cn.enaium.learn.qmxdre.util.FontUtil;
 import com.google.common.eventbus.Subscribe;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import org.lwjgl.input.Keyboard;
 
@@ -18,6 +18,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
+
+import static cn.enaium.learn.qmxdre.util.Render2DUtil.drawRect;
 
 /**
  * @author Enaium
@@ -105,10 +107,10 @@ public class HUD extends Module {
         int[] y = new int[]{5};
         QMXDRE.INSTANCE.module.getModules().stream().
                 filter(Module::getEnable).
-                sorted((o1, o2) -> mc.fontRendererObj.getStringWidth(o2.getName())
-                        - mc.fontRendererObj.getStringWidth(o1.getName())).
+                sorted((o1, o2) -> FontUtil.getWidth(o2.getName())
+                        - FontUtil.getWidth(o1.getName())).
                 forEach(it -> {
-                    mc.fontRendererObj.drawString(it.getName(), sr.getScaledWidth() - mc.fontRendererObj.getStringWidth(it.getName()), y[0], 0xFFFFFF);
+                    mc.fontRendererObj.drawString(it.getName(), sr.getScaledWidth() - FontUtil.getWidth(it.getName()), y[0], 0xFFFFFF);
                     y[0] += mc.fontRendererObj.FONT_HEIGHT;
                 });
     }
@@ -224,21 +226,17 @@ public class HUD extends Module {
         }
     }
 
-    private int getMaxModule() {
+    public static int getMaxModule() {
         ArrayList<Module> modules = QMXDRE.INSTANCE.module.getModules();
-        modules.sort((o1, o2) -> mc.fontRendererObj.getStringWidth(o2.getName()) - mc.fontRendererObj.getStringWidth(o1.getName()));
-        return mc.fontRendererObj.getStringWidth(modules.get(0).getName());
+        modules.sort((o1, o2) -> FontUtil.getWidth(o2.getName()) - FontUtil.getWidth(o1.getName()));
+        return FontUtil.getWidth(modules.get(0).getName());
     }
 
-    private int getMaxType() {
+    public static int getMaxType() {
         List<Type> collect = Arrays.stream(Type.values()).
-                sorted((o1, o2) -> mc.fontRendererObj.getStringWidth(o2.name())
-                        - mc.fontRendererObj.getStringWidth(o1.name())).collect(Collectors.toList());
-        return mc.fontRendererObj.getStringWidth(collect.get(0).name());
-    }
-
-    private void drawRect(int x, int y, int width, int height, int color) {
-        Gui.drawRect(x, y, x + width, y + height, color);
+                sorted((o1, o2) -> FontUtil.getWidth(o2.name())
+                        - FontUtil.getWidth(o1.name())).collect(Collectors.toList());
+        return FontUtil.getWidth(collect.get(0).name());
     }
 
     private static class Tab {

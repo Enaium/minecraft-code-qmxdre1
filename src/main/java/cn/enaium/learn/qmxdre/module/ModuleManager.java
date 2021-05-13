@@ -4,6 +4,7 @@ import cn.enaium.learn.qmxdre.QMXDRE;
 import cn.enaium.learn.qmxdre.event.Events;
 import cn.enaium.learn.qmxdre.event.Events.KeyboardEvent;
 import cn.enaium.learn.qmxdre.module.modules.movement.Sprint;
+import cn.enaium.learn.qmxdre.module.modules.render.ClickGUI;
 import cn.enaium.learn.qmxdre.module.modules.render.FullBright;
 import cn.enaium.learn.qmxdre.module.modules.render.HUD;
 import com.google.common.eventbus.Subscribe;
@@ -26,6 +27,7 @@ public class ModuleManager {
         modules.add(new Sprint());
         modules.add(new FullBright());
         modules.add(new HUD());
+        modules.add(new ClickGUI());
     }
 
     @Subscribe
