@@ -84,5 +84,6 @@ public class TypePanel {
 
     public void mouseReleased(int mouseX, int mouseY, int state) {
         dragging = false;
+        modulePanelList.forEach(it -> it.mouseReleased(mouseX, mouseY, state));
     }
 }

@@ -15,7 +15,7 @@ import org.lwjgl.input.Keyboard;
  */
 public class Sprint extends Module {
     public Sprint() {
-        super("Sprint", Type.OTHER, Keyboard.KEY_V);
+        super("Sprint", Type.MOVEMENT, Keyboard.KEY_V);
     }
 
     @Subscribe
