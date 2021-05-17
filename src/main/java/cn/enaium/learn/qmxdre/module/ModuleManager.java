@@ -8,6 +8,7 @@ import cn.enaium.learn.qmxdre.module.modules.other.Test;
 import cn.enaium.learn.qmxdre.module.modules.render.ClickGUI;
 import cn.enaium.learn.qmxdre.module.modules.render.FullBright;
 import cn.enaium.learn.qmxdre.module.modules.render.HUD;
+import cn.enaium.learn.qmxdre.module.modules.render.Hitbox;
 import com.google.common.eventbus.Subscribe;
 
 import java.util.ArrayList;
@@ -27,9 +28,11 @@ public class ModuleManager {
     public void load() {
         modules.add(new Sprint());
         modules.add(new FullBright());
-        modules.add(new HUD());
+        modules.add(new Hitbox());
         modules.add(new ClickGUI());
         modules.add(new Test());
+
+        modules.add(new HUD());
     }
 
     @Subscribe

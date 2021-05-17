@@ -23,4 +23,8 @@ public class Events {
     public static class Render2DEvent {
 
     }
+
+    public static class Render3DEvent {
+
+    }
 }
